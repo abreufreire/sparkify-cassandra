@@ -10,6 +10,12 @@ song_metadata_drop = "DROP TABLE IF EXISTS song_metadata"
 
 # CREATE TABLES
 
+"""
+table: session_metadata
+composite PRIMARY KEY:
+partition (data distribution): session_id
+clustering (data sorting): item_in_session
+"""
 session_metadata_create = """CREATE TABLE IF NOT EXISTS session_metadata (
     session_id INT,
     item_in_session INT,
@@ -20,6 +26,12 @@ session_metadata_create = """CREATE TABLE IF NOT EXISTS session_metadata (
     )
 """
 
+"""
+table: user_metadata
+composite PRIMARY KEY:
+partition (data distribution): user_id
+clustering (data sorting): item_in_session, item_in_session
+"""
 user_metadata_create = """CREATE TABLE IF NOT EXISTS user_metadata (
     user_id INT,
     session_id INT,
@@ -32,6 +44,12 @@ user_metadata_create = """CREATE TABLE IF NOT EXISTS user_metadata (
     )
 """
 
+"""
+table: song_metadata
+composite PRIMARY KEY:
+partition (data distribution): song
+clustering (data sorting): user_id
+"""
 song_metadata_create = """CREATE TABLE IF NOT EXISTS song_metadata (
     song TEXT,
     user_id INT,
